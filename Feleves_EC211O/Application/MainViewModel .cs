@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Feleves_EC211O.Domain;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace Feleves_EC211O
+namespace Feleves_EC211O.Application
 {
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -18,7 +17,7 @@ namespace Feleves_EC211O
         private readonly DispatcherTimer _uiTimer;
 
         public ObservableCollection<string> Drivers { get; } =
-            new ObservableCollection<string> { "Hamilton", "Verstappen", "Leclerc", "Norris", "Alonos", "Piastri", "Russel" };
+            new ObservableCollection<string> { "Hamilton", "Verstappen", "Leclerc", "Norris", "Alonso", "Piastri", "Russell" };
 
         private string _selectedDriver = "Hamilton";
         public string SelectedDriver
@@ -36,10 +35,19 @@ namespace Feleves_EC211O
 
         public ObservableCollection<LapRecord> LapTimes { get; } = new();
 
+        private LapRecord? _selectedLap;
+        public LapRecord? SelectedLap
+        {
+            get => _selectedLap;
+            set { _selectedLap = value; OnPropertyChanged(); }
+        }
+
+        // Parancsok
         public ICommand StartStopCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand LapCommand { get; }
         public ICommand ShowResultsCommand { get; }
+        public ICommand DeleteLapCommand { get; }
 
         public MainViewModel()
         {
@@ -51,6 +59,7 @@ namespace Feleves_EC211O
             ResetCommand = new RelayCommand(Reset);
             LapCommand = new RelayCommand(Lap);
             ShowResultsCommand = new RelayCommand(ShowResults);
+            DeleteLapCommand = new RelayCommand(DeleteLap);
         }
 
         private void StartStop()
@@ -67,7 +76,6 @@ namespace Feleves_EC211O
 
         private void Lap()
         {
-
             var allLaps = _service.GetLaps();
             var driverLapCount = allLaps.Count(l => l.Driver == SelectedDriver);
 
@@ -106,6 +114,27 @@ namespace Feleves_EC211O
 
             var window = new ResultsWindow(results);
             window.ShowDialog();
+        }
+        private void DeleteLap()
+        {
+            if (SelectedLap == null)
+            {
+                MessageBox.Show("Nincs kiválasztott kör!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var confirm = MessageBox.Show(
+                $"Biztosan törlöd ezt a kört? ({SelectedLap.Driver} – {SelectedLap.Time:hh\\:mm\\:ss})",
+                "Megerősítés",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (confirm != MessageBoxResult.Yes)
+                return;
+
+            _service.RemoveLap(SelectedLap);
+            LapTimes.Remove(SelectedLap);
+            SelectedLap = null;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

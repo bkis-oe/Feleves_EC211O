@@ -1,9 +1,6 @@
 ﻿<Application x:Class="Feleves_EC211O.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Feleves_EC211O"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+             StartupUri="Presentation/MainWindow.xaml">
+    <Application.Resources/>
 </Application>

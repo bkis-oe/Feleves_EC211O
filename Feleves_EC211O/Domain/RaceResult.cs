@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feleves_EC211O
+namespace Feleves_EC211O.Domain
 {
     public class RaceResult
     {

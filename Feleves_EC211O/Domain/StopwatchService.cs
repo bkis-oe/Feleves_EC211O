@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feleves_EC211O
+namespace Feleves_EC211O.Domain
 {
     public class StopwatchService
     {
@@ -41,6 +41,10 @@ namespace Feleves_EC211O
         public void AddLap(LapRecord lap)
         {
             _laps.Add(lap);
+        }
+        public void RemoveLap(LapRecord lap)
+        {
+            _laps.Remove(lap);
         }
 
         public IReadOnlyList<LapRecord> GetLaps() => _laps.AsReadOnly();

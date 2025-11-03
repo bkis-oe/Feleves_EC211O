@@ -9,7 +9,6 @@
         Title="ResultsWindow" Height="450" Width="800">
     <Grid Margin="20">
 
-        <!-- Cím -->
         <TextBlock Text="Eredménytábla"
                    FontSize="26"
                    FontWeight="Bold"
@@ -17,7 +16,6 @@
                    HorizontalAlignment="Center"
                    Margin="0,0,0,15"/>
 
-        <!-- Táblázat -->
         <DataGrid x:Name="ResultGrid"
           AutoGenerateColumns="False"
           IsReadOnly="True"
@@ -39,7 +37,6 @@
           SelectionMode="Single"
           SelectionUnit="FullRow">
 
-            <!-- ✅ Saját RowStyle: letiltjuk a kék/fehér highlightot -->
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="Background" Value="#1E1E1E"/>
@@ -48,20 +45,17 @@
                     <Setter Property="FontWeight" Value="Normal"/>
                     <Style.Triggers>
 
-                        <!-- Győztes sor (első hely) -->
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=AlternationIndex}" Value="0">
                             <Setter Property="Background" Value="Gold"/>
                             <Setter Property="Foreground" Value="Black"/>
                             <Setter Property="FontWeight" Value="Bold"/>
                         </DataTrigger>
 
-                        <!-- Hover effekt: sor fölé visszük az egeret -->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#E10600"/>
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
 
-                        <!-- Kijelölés színe (ne legyen világoskék/fehér) -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#E10600"/>
                             <Setter Property="Foreground" Value="White"/>
@@ -70,7 +64,6 @@
                 </Style>
             </DataGrid.RowStyle>
 
-            <!-- Fejléc stílus -->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="#E10600"/>
@@ -90,7 +83,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Bezárás gomb -->
         <Button Content="Bezárás"
                 Width="120"
                 Height="35"
@@ -111,7 +103,7 @@
                                 <Border Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="5">
+                                        >
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>

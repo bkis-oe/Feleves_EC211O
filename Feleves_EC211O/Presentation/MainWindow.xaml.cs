@@ -8,8 +8,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Feleves_EC211O.Domain;
 
-namespace Feleves_EC211O
+namespace Feleves_EC211O.Presentation
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
